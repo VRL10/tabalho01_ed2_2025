@@ -16,7 +16,7 @@ typedef struct arvore_albuns{ // organizada pelo título
 }Arv_albuns;
 
 typedef struct arvore_musicas{ // organizada pelo título
-    char *titulo[50];
+    char titulo[50];
     int qtd_minutos;
     struct arvore_musicas *dir,*esq;
 }Arv_musicas;
