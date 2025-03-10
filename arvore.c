@@ -16,20 +16,6 @@ artista a qualquer momento, o usuário pode cadastrar um artista a qualquer mome
 cadastro repetido
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct Arv_artista {
-    char *nome;
-    char *tipo;
-    char *estilo_musical;
-    int numero_albuns;
-    struct Arv_artista *esq, *dir;
-} Arv_artista;
-
-void converter_nome(char *nome); // Defina essa função se necessário
-
 int cadastrar_artista(Arv_artista **artista, char *nome, char *tipo, char *estilo_musical, int numero_albuns) {
     converter_nome(nome); // Converte o nome para maiúsculas
     int resultado = 1;
@@ -58,9 +44,9 @@ int cadastrar_artista(Arv_artista **artista, char *nome, char *tipo, char *estil
     }
 
     // Aloca memória para strings e copia os valores
-    novo->nome = strdup(nome);
-    novo->tipo = strdup(tipo);
-    novo->estilo_musical = strdup(estilo_musical);
+    strcpy(novo->nome, nome);
+    strcpy(novo->tipo, tipo);
+    strcpy(novo->estilo_musical, estilo_musical);
     novo->numero_albuns = numero_albuns;
     novo->dir = NULL;
     novo->esq = NULL;
