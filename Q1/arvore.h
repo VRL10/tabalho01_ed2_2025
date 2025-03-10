@@ -33,6 +33,7 @@ void converter_para_maiusculo(char *nome);
 Arv_artista* buscar_artista(Arv_artista *artista, char *nome);
 int cadastrar_artista(Arv_artista **artista, char *nome, char *tipo, char *estilo_musical, int numero_albuns);
 void mostrar_todos_artistas_cadastrados(Arv_artista *artista);
+void Mostrar_todos_artista_cadastrados_determinado_tipo(Arv_artista *artista, char *tipo);
 
 // Funções Relacionadas a Álbum
 int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, char *titulo, int ano_lancamento, int qtd_musicas, char *nome_artista);

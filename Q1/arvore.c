@@ -195,3 +195,16 @@ void mostrar_todos_artistas_cadastrados(Arv_artista *artista) {
         mostrar_todos_artistas_cadastrados(artista->dir);
     }
 }
+
+/* V - Mostrar todos os artistas cadastrados de um determinado tipo. */
+void Mostrar_todos_artista_cadastrados_determinado_tipo(Arv_artista *artista, char *tipo){
+    if (artista == NULL)
+        return;
+    Mostrar_todos_artista_cadastrados_determinado_tipo(artista->esq, tipo);
+    
+    if (strcmp(artista->tipo, tipo) == 0)
+        printf("Artista: %s, Tipo: %s, Estilo: %s, Número de Álbuns: %d\n", 
+               artista->nome, artista->tipo, artista->estilo_musical, artista->numero_albuns);
+
+    Mostrar_todos_artista_cadastrados_determinado_tipo(artista->dir, tipo);
+}
