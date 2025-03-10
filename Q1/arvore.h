@@ -36,6 +36,7 @@ void mostrar_todos_artistas_cadastrados(Arv_artista *artista);
 
 // Funções Relacionadas a Álbum
 int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, char *titulo, int ano_lancamento, int qtd_musicas, char *nome_artista);
+Arv_albuns* buscar_album(Arv_albuns *albuns, char *titulo);
 
 // Funções Relacionadas a Músicas
 Arv_musicas* buscar_musica(Arv_musicas *musicas, char *titulo);
