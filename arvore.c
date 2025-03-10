@@ -65,7 +65,26 @@ int cadastrar_artista(Arv_artista **artista, char *nome, char *tipo, char *estil
 /* II - Cadastrar Álbuns: cadastrar os dados de Álbuns de um determinado artista organizados em uma árvore
 binária pelo título do álbum a qualquer momento, lembre-se um álbum só pode ser cadastrado para um
 artista já castrado e o álbum não pode se repetir para um mesmo artista.*/
-int cadastrar_album(Arv_albuns **albuns, char *titulo, int ano_lancamento, int qtd_musicas){
+Arv_artista* buscar_artista(Arv_artista *artista, char *nome) {
+    while (artista != NULL) {
+        if (strcmp(artista->nome, nome) == 0) {
+            return artista; // Artista encontrado
+        }
+        if (strcmp(nome, artista->nome) < 0) {
+            artista = artista->esq; 
+        } else {
+            artista = artista->dir;
+        }
+    }
+    return NULL; // Retorna o artista encontrado ou NULL se não existir
+}
+
+
+int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, char *titulo, int ano_lancamento, int qtd_musicas, char *nome_artista){
+    if(buscar_artista(artista, nome_artista) == NULL){
+        printf("O artista não existe!");
+        return 0;
+    }
     int resultado = 1;
     converter_para_maiuscula(titulo);
     Arv_albuns *atual = *albuns;
