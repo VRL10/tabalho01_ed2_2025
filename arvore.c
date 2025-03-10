@@ -149,3 +149,12 @@ int cadastrar_musicas(Arv_musicas **musicas, char *titulo, int qtd_minutos) {
     }
     return resultado; // Retorna 1 para sucesso ou 0 para falha
 }
+
+/* IV - Mostrar todos os artistas cadastrados. */
+void mostrar_todos_artistas_cadastrados(Arv_artista *artista) {
+    if (artista != NULL) {
+        mostrar_todos_artistas_cadastrados(artista->esq);
+        printf("\n%s", artista->nome); // Imprime o nome do artista
+        mostrar_todos_artistas_cadastrados(artista->dir);
+    }
+}

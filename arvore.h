@@ -31,7 +31,7 @@ typedef struct arvore_musicas{ // organizada pelo título
 // Funções Relacionadas a Artista
 int cadastrar_artista(Arv_artista **artista, char *nome, char *tipo, char *estilo_musical, int numero_albuns);
 void converter_para_maiusculo(char *nome);
-
+void mostrar_todos_artistas_cadastrados(Arv_artista *artista);
 
 // Funções Relacionadas a Álbum
 int cadastrar_album(Arv_albuns **albuns, char *titulo, int ano_lancamento, int qtd_musicas);
