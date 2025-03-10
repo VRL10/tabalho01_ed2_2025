@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include <ctype.h>
 #include "arvore.h"
 
 void converter_para_maiusculo(char *nome) {
@@ -84,7 +85,7 @@ int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, char *titulo, int
         return 0;
     }
     int resultado = 1;
-    converter_para_maiuscula(titulo);
+    converter_para_maiusculo(titulo);
     Arv_albuns *atual = *albuns;
     Arv_albuns *ptr = NULL;
     while (atual != NULL){
@@ -144,7 +145,7 @@ int cadastrar_musicas(Arv_albuns *albuns, Arv_musicas **musicas, char *titulo, i
         return 0; // Álbum não encontrado
     }
     int resultado = 1;
-    converter_nome(titulo); 
+    converter_para_maiusculo(titulo); 
     Arv_musicas *atual = *musicas;
     Arv_musicas *ptr = NULL;
 
@@ -189,7 +190,8 @@ int cadastrar_musicas(Arv_albuns *albuns, Arv_musicas **musicas, char *titulo, i
 void mostrar_todos_artistas_cadastrados(Arv_artista *artista) {
     if (artista != NULL) {
         mostrar_todos_artistas_cadastrados(artista->esq);
-        printf("\n%s", artista->nome); // Imprime o nome do artista
+        printf("Nome: %s, Tipo: %s, Estilo: %s, Número de Álbuns: %d\n", 
+            artista->nome, artista->tipo, artista->estilo_musical, artista->numero_albuns);
         mostrar_todos_artistas_cadastrados(artista->dir);
     }
 }

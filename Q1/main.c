@@ -15,15 +15,7 @@ void menu() {
     printf("5. Sair\n");
 }
 
-void mostrar_artistas(Arv_artista *artista) {
-    if (artista == NULL) return;
 
-    // Percorre a árvore em ordem (in-order)
-    mostrar_artistas(artista->esq);
-    printf("Nome: %s, Tipo: %s, Estilo: %s, Número de Álbuns: %d\n", 
-           artista->nome, artista->tipo, artista->estilo_musical, artista->numero_albuns);
-    mostrar_artistas(artista->dir);
-}
 
 int main() {
     int opcao;
@@ -35,7 +27,7 @@ int main() {
         getchar(); // Limpa o buffer do teclado
 
         switch (opcao) {
-            case 1: {
+            case 1:
                 // Cadastrar Artista
                 char nome[50], tipo[20], estilo_musical[50];
                 int numero_albuns;
@@ -57,16 +49,15 @@ int main() {
                 getchar(); // Limpa o buffer do teclado
 
                 int resultado = cadastrar_artista(&artistas, nome, tipo, estilo_musical, numero_albuns);
-                if (resultado == 1) {
+                if (resultado == 1)
                     printf("Artista cadastrado com sucesso!\n");
-                } else if (resultado == 0) {
+                else if (resultado == 0)
                     printf("Erro: Artista já cadastrado!\n");
-                } else {
+                else
                     printf("Erro ao cadastrar artista!\n");
-                }
                 break;
-            }
-            case 2: {
+
+            case 2:
                 // Cadastrar Álbum
                 if (artistas == NULL) {
                     printf("Nenhum artista cadastrado. Cadastre um artista primeiro.\n");
@@ -93,59 +84,60 @@ int main() {
                 scanf("%d", &qtd_musicas);
                 getchar(); // Limpa o buffer do teclado
 
-                int resultado = cadastrar_album(artistas, &artistas->albuns, titulo, ano_lancamento, qtd_musicas, nome_artista);
-                if (resultado == 1) {
+                resultado = cadastrar_album(artistas, &artistas->albuns, titulo, ano_lancamento, qtd_musicas, nome_artista);
+                if (resultado == 1)
                     printf("Álbum cadastrado com sucesso!\n");
-                } else if (resultado == 0) {
+                else if (resultado == 0)
                     printf("Erro: Álbum já cadastrado!\n");
-                } else {
+                else
                     printf("Erro ao cadastrar álbum!\n");
-                }
                 break;
-            }
-            case 3: {
+
+            case 3:
                 // Cadastrar Música
                 if (artistas == NULL) {
                     printf("Nenhum artista cadastrado. Cadastre um artista primeiro.\n");
                     break;
-                char titulo[50], nome_artista[50];
+                }
+
+                char titulo_musica[50], nome_artista_musica[50];
                 int duracao;
 
                 printf("Digite o nome do artista para a música: ");
-                fgets(nome_artista, sizeof(nome_artista), stdin);
-                nome_artista[strcspn(nome_artista, "\n")] = 0; // Remove a nova linha
+                fgets(nome_artista_musica, sizeof(nome_artista_musica), stdin);
+                nome_artista_musica[strcspn(nome_artista_musica, "\n")] = 0; // Remove a nova linha
 
                 printf("Digite o título da música: ");
-                fgets(titulo, sizeof(titulo), stdin);
-                titulo[strcspn(titulo, "\n")] = 0; // Remove a nova linha
+                fgets(titulo_musica, sizeof(titulo_musica), stdin);
+                titulo_musica[strcspn(titulo_musica, "\n")] = 0; // Remove a nova linha
 
                 printf("Digite a duração da música (em minutos): ");
                 scanf("%d", &duracao);
                 getchar(); // Limpa o buffer do teclado
 
-                int resultado = cadastrar_musica(artistas, nome_artista, titulo, duracao);
-                if (resultado == 1) {
+                resultado = cadastrar_musica(artistas, nome_artista_musica, titulo_musica, duracao);
+                if (resultado == 1)
                     printf("Música cadastrada com sucesso!\n");
-                } else if (resultado == 0) {
+                else if (resultado == 0)
                     printf("Erro: Música já cadastrada!\n");
-                } else {
+                else
                     printf("Erro ao cadastrar música!\n");
-                }
                 break;
-            }
-            case 4: {
+
+            case 4:
                 // Mostrar todos os artistas
-                if (artistas == NULL) {
+                if (artistas == NULL)
                     printf("Nenhum artista cadastrado.\n");
-                } else {
+                else {
                     printf("\n--- Lista de Artistas ---\n");
-                    mostrar_artistas(artistas);
+                    mostrar_todos_artistas_cadastrados(artistas);
                 }
                 break;
-            }
+
             case 5:
                 printf("Saindo do programa...\n");
                 break;
+
             default:
                 printf("Opção inválida! Tente novamente.\n");
         }
@@ -154,5 +146,4 @@ int main() {
     // Liberação de memória e finalização do programa
     liberar_artistas(artistas);
     return 0;
-    }
 }
