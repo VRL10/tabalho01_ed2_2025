@@ -74,7 +74,7 @@ int cadastrar_album(Arv_albuns **albuns, char *titulo, int ano_lancamento, int q
         ptr = atual;
         if(strcmp(titulo, atual->titulo) == 0){
             printf("\nEsse album já foi cadastrado!");
-            resultado = 0;
+            resultado = 0; // album já foi cadastrado
             break;
         }
         if(strcmp(titulo, atual->titulo) < 0)
@@ -102,4 +102,50 @@ int cadastrar_album(Arv_albuns **albuns, char *titulo, int ano_lancamento, int q
             ptr->dir = novo;
     }
     return resultado;
+}
+
+/* III - Cadastrar Músicas: cadastrar as músicas de um álbum de um artista em uma árvore binária organizada
+pelo título, lembre-se uma música só pode ser cadastrada para um álbum que já existe e a música não
+pode se repetir para um mesmo álbum.*/
+int cadastrar_musicas(Arv_musicas **musicas, char *titulo, int qtd_minutos) {
+    int resultado = 1;
+    converter_nome(titulo); 
+    Arv_musicas *atual = *musicas;
+    Arv_musicas *ptr = NULL;
+
+    while (atual != NULL) {
+        ptr = atual;
+        if (strcmp(titulo, atual->titulo) == 0) {
+            printf("\nEssa música já foi cadastrada!");
+            resultado = 0; // Música já cadastrada
+            break;
+        }
+        if (strcmp(titulo, atual->titulo) < 0) {
+            atual = atual->esq; 
+        } else {
+            atual = atual->dir;
+        }
+    }
+
+    if (resultado == 1) {
+        Arv_musicas *novo = (Arv_musicas*)malloc(sizeof(Arv_musicas));
+        if (novo == NULL) {
+            printf("Erro de alocação!");
+            return -1; // Erro na alocação
+        }
+        strcpy(novo->titulo, titulo);
+        novo->qtd_minutos = qtd_minutos;
+        novo->dir = NULL;
+        novo->esq = NULL;
+
+        // Insere a nova música na posição correta
+        if (ptr == NULL) {
+            *musicas = novo; // A árvore estava vazia
+        } else if (strcmp(titulo, ptr->titulo) < 0) {
+            ptr->esq = novo;
+        } else {
+            ptr->dir = novo;
+        }
+    }
+    return resultado; // Retorna 1 para sucesso ou 0 para falha
 }
