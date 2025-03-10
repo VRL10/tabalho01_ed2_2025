@@ -11,6 +11,10 @@ void converter_nome(char *nome) {
     }
 }
 
+/* I - Cadastrar Artista: cadastrar os dados dos artistas organizados em uma árvore binária pelo nome do
+artista a qualquer momento, o usuário pode cadastrar um artista a qualquer momento, não permita
+cadastro repetido
+*/
 int cadastrar_artista(Arv_artista **artista, char *nome, char *tipo, char *estilo_musical, int numero_albuns){
     converter_nome(nome); // Converte o nome para maiúsculas
     int resultado = 1;
