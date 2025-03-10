@@ -22,4 +22,6 @@ typedef struct arvore_musicas{ // organizada pelo título
 }Arv_musicas;
 
 
+int cadastrar_artista(Arv_artista **artista, char *nome, char *tipo, char *estilo_musical, int numero_albuns);
+
 #endif
