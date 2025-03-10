@@ -67,14 +67,12 @@ binária pelo título do álbum a qualquer momento, lembre-se um álbum só pode
 artista já castrado e o álbum não pode se repetir para um mesmo artista.*/
 Arv_artista* buscar_artista(Arv_artista *artista, char *nome) {
     while (artista != NULL) {
-        if (strcmp(artista->nome, nome) == 0) {
+        if (strcmp(artista->nome, nome) == 0)
             return artista; // Artista encontrado
-        }
-        if (strcmp(nome, artista->nome) < 0) {
+        if (strcmp(nome, artista->nome) < 0)
             artista = artista->esq; 
-        } else {
+        else
             artista = artista->dir;
-        }
     }
     return NULL; // Retorna o artista encontrado ou NULL se não existir
 }
@@ -126,7 +124,25 @@ int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, char *titulo, int
 /* III - Cadastrar Músicas: cadastrar as músicas de um álbum de um artista em uma árvore binária organizada
 pelo título, lembre-se uma música só pode ser cadastrada para um álbum que já existe e a música não
 pode se repetir para um mesmo álbum.*/
-int cadastrar_musicas(Arv_musicas **musicas, char *titulo, int qtd_minutos) {
+Arv_albuns* buscar_album(Arv_albuns *albuns, char *titulo) {
+    while (albuns != NULL) {
+        if (strcmp(albuns->titulo, titulo) == 0) {
+            return albuns; // Álbum encontrado
+        }
+        if (strcmp(titulo, albuns->titulo) < 0) {
+            albuns = albuns->esq; 
+        } else {
+            albuns = albuns->dir; 
+        }
+    }
+    return NULL; // Retorna NULL se o álbum não existir
+}
+
+int cadastrar_musicas(Arv_albuns *albuns, Arv_musicas **musicas, char *titulo, int qtd_minutos, char *titulo_album){
+    if (buscar_album(albuns, titulo_album) == NULL){
+        printf("O álbum não existe!\n");
+        return 0; // Álbum não encontrado
+    }
     int resultado = 1;
     converter_nome(titulo); 
     Arv_musicas *atual = *musicas;
