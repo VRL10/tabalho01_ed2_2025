@@ -34,7 +34,7 @@ void converter_para_maiusculo(char *nome);
 
 
 // Funções Relacionadas a Álbum
-
+int cadastrar_album(Arv_albuns **albuns, char *titulo, int ano_lancamento, int qtd_musicas);
 
 // Funções Relacionadas a Músicas
 
