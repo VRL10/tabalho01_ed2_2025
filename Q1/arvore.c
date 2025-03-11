@@ -221,8 +221,7 @@ void mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(Arv_ar
     if (artista != NULL){
         mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(artista->esq, estilo_musical, tipo);
         if (strcmp(artista->tipo, tipo) == 0 && strcmp(artista->estilo_musical, estilo_musical) == 0)
-            printf("Artista: %s, Tipo: %s, Estilo: %s", 
-               artista->nome, artista->tipo, artista->estilo_musical);
+            printf("\nArtista: %s, Tipo: %s, Estilo: %s",artista->nome, artista->tipo, artista->estilo_musical);
         mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(artista->dir, estilo_musical, tipo);
     }
 }
