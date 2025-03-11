@@ -225,3 +225,21 @@ void mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(Arv_ar
         mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(artista->dir, estilo_musical, tipo);
     }
 }
+
+// VII - Mostrar todos os álbuns de um determinado artista
+void mostrar_todos_albuns(Arv_albuns *album){
+    if(album != NULL){
+        mostrar_todos_albuns(album->esq);
+        printf("\n%s",album->titulo);
+        mostrar_todos_albuns(album->dir);
+    }
+}
+
+void mostrar_todos_albuns_determinado_artista(Arv_artista *artista, char *nome_artista){
+    Arv_artista *artista_encontrado = buscar_artista(artista, nome_artista);
+    if (artista_encontrado != NULL){
+        printf("\n------- Todos os álbuns do artista %s --------", artista_encontrado->nome);
+        mostrar_todos_albuns(artista_encontrado->albuns);
+    }else
+        printf("Artista não encontrado.\n");
+}

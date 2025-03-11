@@ -15,9 +15,11 @@ void menu() {
     printf("2. Cadastrar Album\n");
     printf("3. Cadastrar Musica\n");
     printf("4. Mostrar Todos os Artistas\n");
-    printf("5. Mostrar Todos os  de um determinado tipo\n");
-    printf("6. Mostrar Todos os  de um determinado estilo musical\n");
-    printf("5. Sair\n");
+    printf("5. Mostrar Todos os de um determinado tipo\n");
+    printf("6. Mostrar Todos os de um determinado estilo musical\n");
+    printf("7. Mostrar Todos os de um determinado estilo musical e tipo\n");
+    printf("8. Mostrar todos os Albuns de um determinado artista\n");
+    printf("9. Sair\n");
 }
 
 int main() {
@@ -38,15 +40,15 @@ int main() {
 
                 printf("Digite o tipo do artista: ");
                 fgets(tipo, sizeof(tipo), stdin);
-                tipo[strcspn(tipo, "\n")] = 0; // Remove a nova linha
+                tipo[strcspn(tipo, "\n")] = 0; 
 
                 printf("Digite o estilo musical do artista: ");
                 fgets(estilo_musical, sizeof(estilo_musical), stdin);
-                estilo_musical[strcspn(estilo_musical, "\n")] = 0; // Remove a nova linha
+                estilo_musical[strcspn(estilo_musical, "\n")] = 0;
 
                 printf("Digite o numero de albuns: ");
                 scanf("%d", &numero_albuns);
-                getchar(); // Limpa o buffer do teclado
+                getchar();
 
                 int resultado = cadastrar_artista(&artistas, nome, tipo, estilo_musical, numero_albuns);
                 if (resultado == 1)
@@ -67,19 +69,19 @@ int main() {
 
                 printf("Digite o nome do artista para o album: ");
                 fgets(nome_artista, sizeof(nome_artista), stdin);
-                nome_artista[strcspn(nome_artista, "\n")] = 0; // Remove a nova linha
+                nome_artista[strcspn(nome_artista, "\n")] = 0; 
 
                 printf("Digite o titulo do album: ");
                 fgets(titulo, sizeof(titulo), stdin);
-                titulo[strcspn(titulo, "\n")] = 0; // Remove a nova linha
+                titulo[strcspn(titulo, "\n")] = 0; 
 
                 printf("Digite o ano de lancamento: ");
                 scanf("%d", &ano_lancamento);
-                getchar(); // Limpa o buffer do teclado
+                getchar(); 
 
                 printf("Digite a quantidade de musicas: ");
                 scanf("%d", &qtd_musicas);
-                getchar(); // Limpa o buffer do teclado
+                getchar(); 
 
                 int resultado = cadastrar_album(artistas, &artistas->albuns, titulo, ano_lancamento, qtd_musicas, nome_artista);
                 if (resultado == 1)
@@ -100,21 +102,21 @@ int main() {
             
                 printf("Digite o nome do artista para a musica: ");
                 fgets(nome_artista, sizeof(nome_artista), stdin);
-                nome_artista[strcspn(nome_artista, "\n")] = 0; // Remove a nova linha
+                nome_artista[strcspn(nome_artista, "\n")] = 0; 
             
                 printf("Digite o titulo da musica: ");
                 fgets(musica_titulo, sizeof(musica_titulo), stdin);
-                musica_titulo[strcspn(musica_titulo, "\n")] = 0; // Remove a nova linha
+                musica_titulo[strcspn(musica_titulo, "\n")] = 0; 
             
                 printf("Digite a duracao da musica (em minutos): ");
                 scanf("%d", &duracao);
-                getchar(); // Limpa o buffer do teclado
+                getchar(); 
             
                 // Aqui, precisamos buscar o álbum correspondente ao artista
                 char titulo_album[50];
                 printf("Digite o titulo do album: ");
                 fgets(titulo_album, sizeof(titulo_album), stdin);
-                titulo_album[strcspn(titulo_album, "\n")] = 0; // Remove a nova linha
+                titulo_album[strcspn(titulo_album, "\n")] = 0; 
             
                 Arv_albuns *album = buscar_album(artistas->albuns, titulo_album); // Busca o álbum pelo título
                 if (album == NULL) {
@@ -148,7 +150,7 @@ int main() {
                 tipo[strcspn(tipo, "\n")] = 0;
             
                 printf("\n--- Artistas do tipo %s ---\n", tipo);
-                mostrar_todos_artista_cadastrados_determinado_tipo(artistas, tipo);
+                mostrar_todos_artistas_cadastrados_determinado_tipo(artistas, tipo);
                 break;
             }
             case 6: {
@@ -157,10 +159,30 @@ int main() {
                 estilo_musical[strcspn(estilo_musical, "\n")] = 0;
             
                 printf("\n--- Artistas do estilo musical %s ---\n", estilo_musical);
-                mostrar_todos_artista_cadastrados_determinado_tipo(artistas, estilo_musical);
+                mostrar_todos_artistas_cadastrados_determinado_estilo_musical(artistas, estilo_musical);
                 break;
             }
-            case 7:
+            case 7: {
+                printf("Digite o estilo musical que deseja listar: ");
+                fgets(estilo_musical, sizeof(estilo_musical), stdin);
+                estilo_musical[strcspn(estilo_musical, "\n")] = 0; 
+            
+                printf("Digite o tipo de artista que deseja listar: ");
+                fgets(tipo, sizeof(tipo), stdin);
+                tipo[strcspn(tipo, "\n")] = 0; 
+            
+                printf("\n--- Artistas do estilo musical %s e tipo %s ---\n", estilo_musical, tipo);
+                mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(artistas, estilo_musical, tipo);
+                break;
+            }
+            case 8: {
+                printf("Digite o nome do artista para listar os álbuns: ");
+                fgets(nome_artista, sizeof(nome_artista), stdin);
+                nome_artista[strcspn(nome_artista, "\n")] = 0; 
+                mostrar_todos_albuns_determinado_artista(artistas, nome_artista);
+                break;
+            }
+            case 9:
                 printf("Saindo do programa...\n");
                 break;
             default:

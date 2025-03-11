@@ -40,6 +40,8 @@ void mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(Arv_ar
 // Funções Relacionadas a Álbum
 int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, char *titulo, int ano_lancamento, int qtd_musicas, char *nome_artista);
 Arv_albuns* buscar_album(Arv_albuns *albuns, char *titulo);
+void mostrar_todos_albuns(Arv_albuns *album);
+void mostrar_todos_albuns_determinado_artista(Arv_artista *artista, char *nome_artista);
 
 // Funções Relacionadas a Músicas
 Arv_musicas* buscar_musica(Arv_musicas *musicas, char *titulo);
