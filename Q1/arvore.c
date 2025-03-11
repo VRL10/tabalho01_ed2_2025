@@ -201,8 +201,7 @@ void mostrar_todos_artistas_cadastrados_determinado_tipo(Arv_artista *artista, c
     if (artista != NULL){
         mostrar_todos_artistas_cadastrados_determinado_tipo(artista->esq, tipo);
         if (strcmp(artista->tipo, tipo) == 0)
-            printf("Artista: %s, Tipo: %s, Estilo: %s, Número de Álbuns: %d\n", 
-                artista->nome, artista->tipo, artista->estilo_musical, artista->numero_albuns);
+            printf("Artista: %s, Tipo: %s\n",artista->nome, artista->tipo);
         mostrar_todos_artistas_cadastrados_determinado_tipo(artista->dir, tipo);
     }
 }
@@ -212,8 +211,18 @@ void mostrar_todos_artistas_cadastrados_determinado_estilo_musical(Arv_artista *
     if (artista != NULL){
         mostrar_todos_artistas_cadastrados_determinado_estilo_musical(artista->esq, estilo_musical);
         if (strcmp(artista->estilo_musical, estilo_musical) == 0)
-            printf("Artista: %s, Tipo: %s, Estilo: %s, Número de Álbuns: %d\n", 
-               artista->nome, artista->tipo, artista->estilo_musical, artista->numero_albuns);
+            printf("Artista: %s, Estilo: %s",artista->nome, artista->estilo_musical);
         mostrar_todos_artistas_cadastrados_determinado_estilo_musical(artista->dir, estilo_musical);
+    }
+}
+
+// VII - Mostrar todos os artistas cadastrados de um determinado estilo musical e tipo de artista.
+void mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(Arv_artista *artista, char *estilo_musical, char *tipo){
+    if (artista != NULL){
+        mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(artista->esq, estilo_musical, tipo);
+        if (strcmp(artista->tipo, tipo) == 0 && strcmp(artista->estilo_musical, estilo_musical) == 0)
+            printf("Artista: %s, Tipo: %s, Estilo: %s", 
+               artista->nome, artista->tipo, artista->estilo_musical);
+        mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(artista->dir, estilo_musical, tipo);
     }
 }
