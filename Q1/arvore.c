@@ -197,27 +197,28 @@ void mostrar_todos_artistas_cadastrados(Arv_artista *artista) {
 }
 
 /* V - Mostrar todos os artistas cadastrados de um determinado tipo. */
-void mostrar_todos_artista_cadastrados_determinado_tipo(Arv_artista *artista, char *tipo){
+void mostrar_todos_artistas_cadastrados_determinado_tipo(Arv_artista *artista, char *tipo){
     if (artista == NULL)
         return;
-    mostrar_todos_artista_cadastrados_determinado_tipo(artista->esq, tipo);
+    mostrar_todos_artistas_cadastrados_determinado_tipo(artista->esq, tipo);
 
     if (strcmp(artista->tipo, tipo) == 0)
         printf("Artista: %s, Tipo: %s, Estilo: %s, Número de Álbuns: %d\n", 
                artista->nome, artista->tipo, artista->estilo_musical, artista->numero_albuns);
 
-    mostrar_todos_artista_cadastrados_determinado_tipo(artista->dir, tipo);
+    mostrar_todos_artistas_cadastrados_determinado_tipo(artista->dir, tipo);
 }
 
 /* VI - Mostrar todos os artistas cadastrados de um determinado estilo musical */
 void mostrar_todos_artistas_cadastrados_determinado_estilo_musical(Arv_artista *artista, char *estilo_musical){
     if (artista == NULL)
         return;
-    mostrar_todos_artista_cadastrados_determinado_tipo(artista->esq, estilo_musical);
+    mostrar_todos_artistas_cadastrados_determinado_estilo_musical(artista->esq, estilo_musical);
 
     if (strcmp(artista->estilo_musical, estilo_musical) == 0)
         printf("Artista: %s, Tipo: %s, Estilo: %s, Número de Álbuns: %d\n", 
                artista->nome, artista->tipo, artista->estilo_musical, artista->numero_albuns);
 
-    mostrar_todos_artista_cadastrados_determinado_tipo(artista->dir, estilo_musical);
+    mostrar_todos_artistas_cadastrados_determinado_estilo_musical(artista->dir, estilo_musical);
 }
+
