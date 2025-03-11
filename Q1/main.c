@@ -16,7 +16,8 @@ void menu() {
     printf("3. Cadastrar Musica\n");
     printf("4. Mostrar Todos os Artistas\n");
     printf("5. Mostrar Todos os  de um determinado tipo\n");
-    printf("6. Sair\n");
+    printf("6. Mostrar Todos os  de um determinado estilo musical\n");
+    printf("5. Sair\n");
 }
 
 int main() {
@@ -142,16 +143,24 @@ int main() {
                 break;
             }
             case 5: {
-                char tipo[20];
                 printf("Digite o tipo de artista que deseja listar: ");
                 fgets(tipo, sizeof(tipo), stdin);
                 tipo[strcspn(tipo, "\n")] = 0;
             
                 printf("\n--- Artistas do tipo %s ---\n", tipo);
-                Mostrar_todos_artista_cadastrados_determinado_tipo(artistas, tipo);
+                mostrar_todos_artista_cadastrados_determinado_tipo(artistas, tipo);
                 break;
             }
-            case 6:
+            case 6: {
+                printf("Digite o estilo musical de artista que deseja listar: ");
+                fgets(estilo_musical, sizeof(estilo_musical), stdin);
+                estilo_musical[strcspn(estilo_musical, "\n")] = 0;
+            
+                printf("\n--- Artistas do estilo musical %s ---\n", estilo_musical);
+                mostrar_todos_artista_cadastrados_determinado_tipo(artistas, estilo_musical);
+                break;
+            }
+            case 7:
                 printf("Saindo do programa...\n");
                 break;
             default:
