@@ -19,7 +19,8 @@ void menu() {
     printf("6. Mostrar Todos os de um determinado estilo musical\n");
     printf("7. Mostrar Todos os de um determinado estilo musical e tipo\n");
     printf("8. Mostrar todos os Albuns de um determinado artista\n");
-    printf("9. Sair\n");
+    printf("9. Mostrar todos os álbuns de um determinado ano de um artista\n");
+    printf("10. Sair\n");
 }
 
 int main() {
@@ -182,13 +183,25 @@ int main() {
                 mostrar_todos_albuns_determinado_artista(artistas, nome_artista);
                 break;
             }
-            case 9:
+            case 9: {
+                printf("Digite o nome do artista: ");
+                fgets(nome_artista, sizeof(nome_artista), stdin);
+                nome_artista[strcspn(nome_artista, "\n")] = 0;
+            
+                printf("Digite o ano do álbum que deseja listar: ");
+                scanf("%d", &ano_lancamento);
+                getchar(); 
+            
+                mostrar_todos_albuns_determinado_ano_artista(artistas, nome_artista, ano_lancamento);
+                break;
+            }
+            case 10:
                 printf("Saindo do programa...\n");
                 break;
             default:
                 printf("Opcao invalida! Tente novamente.\n");
         }
-    } while (opcao != 5);
+    } while (opcao != 10);
 
     return 0;
 }

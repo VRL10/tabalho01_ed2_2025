@@ -226,7 +226,7 @@ void mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(Arv_ar
     }
 }
 
-// VII - Mostrar todos os álbuns de um determinado artista
+// VIII - Mostrar todos os álbuns de um determinado artista
 void mostrar_todos_albuns(Arv_albuns *album){
     if(album != NULL){
         mostrar_todos_albuns(album->esq);
@@ -240,6 +240,25 @@ void mostrar_todos_albuns_determinado_artista(Arv_artista *artista, char *nome_a
     if (artista_encontrado != NULL){
         printf("\n------- Todos os álbuns do artista %s --------", artista_encontrado->nome);
         mostrar_todos_albuns(artista_encontrado->albuns);
+    }else
+        printf("Artista não encontrado.\n");
+}
+
+// IX - Mostrar todos os álbuns de um determinado ano de um artista.
+void mostrar_albuns_ano(Arv_albuns *album, int ano_album){
+    if(album != NULL){
+        mostrar_albuns_ano(album->esq, ano_album);
+        if(album->ano_lancamento == ano_album)
+            printf("\nTítulo: %s\nAno de lançamento: %d",album->titulo, album->ano_lancamento);
+        mostrar_albuns_ano(album->dir, ano_album);
+    }
+}
+
+void mostrar_todos_albuns_determinado_ano_artista(Arv_artista *artistas, char *nome_artista, int ano_album){
+    Arv_artista *artista_encontrado = buscar_artista(artistas, nome_artista);
+    if (artista_encontrado != NULL){
+        printf("\n------- Todos os álbuns do ano %d --------", ano_album);
+        mostrar_albuns_ano(artista_encontrado->albuns, ano_album);
     }else
         printf("Artista não encontrado.\n");
 }
