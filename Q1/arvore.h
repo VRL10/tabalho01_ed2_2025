@@ -31,14 +31,14 @@ typedef struct arvore_musicas{ // organizada pelo título
 // Funções Relacionadas a Artista
 void converter_para_maiusculo(char *nome);
 Arv_artista* buscar_artista(Arv_artista *artista, char *nome);
-int cadastrar_artista(Arv_artista **artista, char *nome, char *tipo, char *estilo_musical, int numero_albuns);
+int cadastrar_artista(Arv_artista **artista, Arv_artista *No);
 void mostrar_todos_artistas_cadastrados(Arv_artista *artista);
 void mostrar_todos_artistas_cadastrados_determinado_tipo(Arv_artista *artista, char *tipo);
 void mostrar_todos_artistas_cadastrados_determinado_estilo_musical(Arv_artista *artista, char *estilo_musical);
 void mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(Arv_artista *artista, char *estilo_musical, char *tipo);
 
 // Funções Relacionadas a Álbum
-int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, char *titulo, int ano_lancamento, int qtd_musicas, char *nome_artista);
+int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, Arv_albuns *No, char *nome_artista);
 Arv_albuns* buscar_album(Arv_albuns *albuns, char *titulo);
 void mostrar_todos_albuns(Arv_albuns *album);
 void mostrar_todos_albuns_determinado_artista(Arv_artista *artista, char *nome_artista);
