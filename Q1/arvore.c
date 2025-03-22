@@ -12,6 +12,22 @@ Arv_artista* alocar_arvore_artista(Arv_artista *novo){
     return novo;
 }
 
+Arv_albuns* alocar_arvore_album(Arv_albuns *novo){
+    novo = (Arv_albuns*)malloc(sizeof(Arv_albuns));
+    if (novo == NULL) {
+        printf("\nErro na alocação");
+    }
+    return novo;
+}
+
+Arv_musicas* alocar_arvore_musica(Arv_musicas *novo){
+    novo = (Arv_musicas*)malloc(sizeof(Arv_musicas));
+    if (novo == NULL) {
+        printf("\nErro na alocação");
+    }
+    return novo;
+}
+
 void converter_para_maiusculo(char *nome) {
     int i = 0;
     while (nome[i] != '\0'){
@@ -115,7 +131,7 @@ int inserir_album(Arv_albuns **albuns, Arv_albuns *No){
 int cadastrar_album(Arv_artista **artista, Arv_albuns *No, char *nome_artista) {
     int resultado = 0;
     if(artista != NULL){
-        Arv_artista *artista_encontrado = buscar_artista(artista, nome_artista);
+        Arv_artista *artista_encontrado = buscar_artista(*artista, nome_artista);
         if(artista_encontrado != NULL) {
             converter_para_maiusculo(No->titulo);
             int existe = album_existe((*artista)->albuns, No->titulo);
@@ -163,14 +179,14 @@ int inserir_musica(Arv_musicas **musicas, Arv_musicas *No){
     return resultado;
 }
 
-int cadastrar_musicas(Arv_artista **artista, Arv_musicas *No, char *nome_artista, char *nome_album){
+int cadastrar_musicas(Arv_artista **artista, Arv_musicas *No, char *nome_artista, char *titulo_album){
     int resultado = 0;
     if(*artista != NULL){
         Arv_artista *artista_encontrado = buscar_artista(*artista, nome_artista);
 
         if (artista_encontrado != NULL) {
             converter_para_maiusculo(No->titulo);
-            Arv_albuns *album_encontrado = buscar_album(&artista_encontrado, artista_encontrado->albuns->titulo);
+            Arv_albuns *album_encontrado = buscar_album(artista_encontrado->albuns, titulo_album);
             if(album_encontrado != NULL)
                 resultado = inserir_musica(&artista_encontrado->albuns->musicas, No);
             else

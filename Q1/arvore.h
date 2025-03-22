@@ -30,6 +30,8 @@ typedef struct arvore_musicas{ // organizada pelo título
 
 // Funções Relacionadas a Artista
 void converter_para_maiusculo(char *nome);
+int artista_existe(Arv_artista* artista, char *nome);
+int inserir_artista(Arv_artista **artista, Arv_artista *No);
 Arv_artista* buscar_artista(Arv_artista *artista, char *nome);
 int cadastrar_artista(Arv_artista **artista, Arv_artista *No);
 void mostrar_todos_artistas_cadastrados(Arv_artista *artista);
@@ -38,7 +40,9 @@ void mostrar_todos_artistas_cadastrados_determinado_estilo_musical(Arv_artista *
 void mostrar_todos_artistas_cadastrados_determinado_estilo_musical_e_tipo(Arv_artista *artista, char *estilo_musical, char *tipo);
 
 // Funções Relacionadas a Álbum
-int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, Arv_albuns *No, char *nome_artista);
+int album_existe(Arv_albuns *albuns, char *titulo);
+int inserir_album(Arv_albuns **albuns, Arv_albuns *No);
+int cadastrar_album(Arv_artista **artista, Arv_albuns *No, char *nome_artista);
 Arv_albuns* buscar_album(Arv_albuns *albuns, char *titulo);
 void mostrar_todos_albuns(Arv_albuns *album);
 void mostrar_todos_albuns_determinado_artista(Arv_artista *artista, char *nome_artista);
@@ -46,7 +50,12 @@ void mostrar_albuns_ano(Arv_albuns *album, int ano_album);
 void mostrar_todos_albuns_determinado_ano_artista(Arv_artista *artistas, char *nome_artista, int ano_album);
 
 // Funções Relacionadas a Músicas
-Arv_musicas* buscar_musica(Arv_musicas *musicas, char *titulo);
+int inserir_musica(Arv_musicas **musicas, Arv_musicas *No);
 int cadastrar_musicas(Arv_artista **artista, Arv_musicas *No, char *nome_artista, char *nome_album);
+
+// Funções auxiliares
+Arv_artista* alocar_arvore_artista(Arv_artista *novo);
+Arv_albuns* alocar_arvore_album(Arv_albuns *novo);
+Arv_musicas* alocar_arvore_musica(Arv_musicas *novo);
 
 #endif
