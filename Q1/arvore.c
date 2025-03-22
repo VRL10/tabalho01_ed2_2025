@@ -57,8 +57,8 @@ int cadastrar_artista(Arv_artista **artista, Arv_artista *No) {
         converter_para_maiusculo(No->nome); // Converte o nome para maiúsculas
         
         int existe = artista_existe(artista, No->nome);
-        if(existe != 0)
-            resultado = inserir_artista(&artista, No);
+        if(existe != 1)
+            resultado = inserir_artista(&(*artista), No);
         else
             printf("Artista já existe!");
     }else{
@@ -110,23 +110,21 @@ int inserir_album(Arv_albuns **albuns, Arv_albuns *No){
     return resultado;
 }
 
-int cadastrar_album(Arv_artista *artista, Arv_albuns **albuns, Arv_albuns *No, char *nome_artista) {
+int cadastrar_album(Arv_artista **artista, Arv_albuns *No, char *nome_artista) {
     int resultado = 0;
-    if(*albuns != NULL){
+    if(artista != NULL){
         if(buscar_artista(artista, nome_artista) != NULL) {
-            int artista_encontrado = 1;
             converter_para_maiusculo(No->titulo);
-            int existe = album_existe(*albuns, No->titulo);
+            int existe = album_existe((*artista)->albuns, No->titulo);
             if(existe != 1)
-                resultado = inserir_album(&albuns,No);
+                resultado = inserir_album(&(*artista)->albuns,No);
             else
                 printf("Este álbum já existe!");
         }else
             printf("Artista não existe!");
-    }else{
-        *albuns = No;
-        resultado = 1;
-    }
+    }else
+        printf("Não existe artistas cadastrados");
+
     return resultado;
 }
 
@@ -149,11 +147,12 @@ Arv_albuns* buscar_album(Arv_albuns *albuns, char *titulo) {
 
 int cadastrar_musicas(Arv_albuns *albuns, Arv_musicas **musicas, Arv_musicas *No){
     int resultado = 1;
-    if (buscar_album(albuns, No->titulo) == NULL){
-        printf("O álbum não existe!\n");
-        resultado = 0; // Álbum não encontrado
+    Arv_albuns *album_encontrado = buscar_album(albuns, No->titulo);
+    if (album_encontrado != NULL){
+        converter_para_maiusculo(No->titulo);
+
+
     }
-    converter_para_maiusculo(No->titulo);
     
     
     return resultado; // Retorna 1 para sucesso ou 0 para falha
