@@ -39,14 +39,18 @@ int artista_existe(Arv_artista* artista, char *nome){
 }
 int inserir_artista(Arv_artista **artista, Arv_artista *No){
     int resultado = 0;
-    if(strcmp((*artista)->nome, No->nome) == 0){
+    if(*artista == NULL){
         *artista = No;
         resultado = 1;
     }
-    else if(strcmp((*artista)->nome, No->nome) > 0)
-        resultado = inserir_artista(&(*artista)->esq, No);
-    else
-        resultado = inserir_artista(&(*artista)->dir, No);
+    else{
+        if(strcmp((*artista)->nome, No->nome) > 0)
+            resultado = inserir_artista(&(*artista)->esq, No);
+        else if(strcmp((*artista)->nome, No->nome) < 0)
+            resultado = inserir_artista(&(*artista)->dir, No);
+        else
+            printf("Esse artista já foi cadastrado!");
+    }
 
     return resultado;
 }
@@ -55,12 +59,7 @@ int cadastrar_artista(Arv_artista **artista, Arv_artista *No) {
     int resultado = 0;
     if(*artista != NULL){
         converter_para_maiusculo(No->nome); // Converte o nome para maiúsculas
-        
-        int existe = artista_existe(artista, No->nome);
-        if(existe != 1)
-            resultado = inserir_artista(&(*artista), No);
-        else
-            printf("Artista já existe!");
+        resultado = inserir_artista(&(*artista), No);
     }else{
         *artista = No;
         resultado = 1;
@@ -99,27 +98,29 @@ int album_existe(Arv_albuns *albuns, char *titulo){
 
 int inserir_album(Arv_albuns **albuns, Arv_albuns *No){
     int resultado = 0;
-    if(strcmp((*albuns)->titulo, No->titulo) == 0){
+    if(*albuns == NULL){
         *albuns = No;
         resultado = 1;
-    }else if(strcmp((*albuns)->titulo, No->titulo) > 0)
-        inserir_album(&(*albuns)->esq, No);
-    else
-        inserir_album(&(*albuns)->dir, No);
-
+    }else{
+        if(strcmp((*albuns)->titulo, No->titulo) > 0)
+            inserir_album(&(*albuns)->esq, No);
+        else if(strcmp((*albuns)->titulo, No->titulo) < 0)
+            inserir_album(&(*albuns)->dir, No);
+        else
+            printf("Este álbum já existe!");
+    }
     return resultado;
 }
 
 int cadastrar_album(Arv_artista **artista, Arv_albuns *No, char *nome_artista) {
     int resultado = 0;
     if(artista != NULL){
-        if(buscar_artista(artista, nome_artista) != NULL) {
+        Arv_artista *artista_encontrado = buscar_artista(artista, nome_artista);
+        if(artista_encontrado != NULL) {
             converter_para_maiusculo(No->titulo);
             int existe = album_existe((*artista)->albuns, No->titulo);
             if(existe != 1)
-                resultado = inserir_album(&(*artista)->albuns,No);
-            else
-                printf("Este álbum já existe!");
+                resultado = inserir_album(&artista_encontrado->albuns,No);
         }else
             printf("Artista não existe!");
     }else
@@ -139,25 +140,47 @@ Arv_albuns* buscar_album(Arv_albuns *albuns, char *titulo) {
         else if (strcmp(titulo, albuns->titulo) < 0) 
             albuns = albuns->esq; 
         else 
-            albuns = albuns->dir; 
-        
+            albuns = albuns->dir;  
     }
     return albuns; // Retorna NULL se o álbum não existir
 }
 
-int cadastrar_musicas(Arv_albuns *albuns, Arv_musicas **musicas, Arv_musicas *No){
-    int resultado = 1;
-    Arv_albuns *album_encontrado = buscar_album(albuns, No->titulo);
-    if (album_encontrado != NULL){
-        converter_para_maiusculo(No->titulo);
+int inserir_musica(Arv_musicas **musicas, Arv_musicas *No){
+    int resultado = 0;
 
-
+    if (*musicas == NULL) {
+        *musicas = No;
+        resultado = 1;
+    }else {
+        if (strcmp(No->titulo, (*musicas)->titulo) < 0)
+            resultado = inserir_musica(&(*musicas)->esq, No);
+        else if (strcmp(No->titulo, (*musicas)->titulo) > 0)
+            resultado = inserir_musica(&(*musicas)->dir, No);
+        else
+            printf("Essa música já foi cadastrada!\n");
     }
-    
-    
-    return resultado; // Retorna 1 para sucesso ou 0 para falha
+
+    return resultado;
 }
 
+int cadastrar_musicas(Arv_artista **artista, Arv_musicas *No, char *nome_artista, char *nome_album){
+    int resultado = 0;
+    if(*artista != NULL){
+        Arv_artista *artista_encontrado = buscar_artista(*artista, nome_artista);
+
+        if (artista_encontrado != NULL) {
+            converter_para_maiusculo(No->titulo);
+            Arv_albuns *album_encontrado = buscar_album(&artista_encontrado, artista_encontrado->albuns->titulo);
+            if(album_encontrado != NULL)
+                resultado = inserir_musica(&artista_encontrado->albuns->musicas, No);
+            else
+                printf("\nO Album não existe!");
+        }else
+            printf("Artista não existe!");
+    }
+
+    return resultado;
+}
 
 
 /* IV - Mostrar todos os artistas cadastrados. */

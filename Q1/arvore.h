@@ -47,5 +47,6 @@ void mostrar_todos_albuns_determinado_ano_artista(Arv_artista *artistas, char *n
 
 // Funções Relacionadas a Músicas
 Arv_musicas* buscar_musica(Arv_musicas *musicas, char *titulo);
-int cadastrar_musicas(Arv_albuns *albuns, Arv_musicas **musicas, char *titulo, int qtd_minutos, char *titulo_album);
+int cadastrar_musicas(Arv_artista **artista, Arv_musicas *No, char *nome_artista, char *nome_album);
+
 #endif
