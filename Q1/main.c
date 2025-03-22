@@ -14,6 +14,9 @@ void menu() {
     printf("7. Mostrar artistas por estilo musical e tipo\n");
     printf("8. Mostrar albuns de um artista\n");
     printf("9. Mostrar albuns de um ano para um artista\n");
+    printf("10. Mostrar todas as musicas de um album de um artista\n");
+    printf("11. Mostrar todos os albuns de um determinado ano de todos os artistas cadastrados\n");
+    printf("12. Mostrar os dados de uma determinada música\n");
     printf("0. Sair\n");
     printf("Escolha uma opção: ");
 }
@@ -130,6 +133,28 @@ int main() {
                 getchar();
                 mostrar_todos_albuns_determinado_ano_artista(raiz, nome, ano);
                 break;
+            case 10:
+                printf("Nome do artista: ");
+                fgets(nome, 50, stdin);
+                nome[strcspn(nome, "\n")] = 0;
+                printf("Título do álbum: ");
+                fgets(titulo, 50, stdin);
+                titulo[strcspn(titulo, "\n")] = 0;
+                mostrar_todas_musicas_album_artista(raiz, nome, titulo);
+                break;
+            case 11:
+                printf("Ano do álbum: ");
+                scanf("%d", &ano);
+                getchar();
+                mostrar_todos_albuns_determinado_ano_todos_artistas(raiz, ano);
+                break;
+            case 12:
+                printf("Título da música: ");
+                fgets(titulo, 50, stdin);
+                titulo[strcspn(titulo, "\n")] = 0;
+                mostrar_dados_musica(raiz, titulo);
+                break;
+            
             case 0:
                 printf("Saindo...\n");
                 break;

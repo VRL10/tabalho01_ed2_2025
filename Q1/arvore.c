@@ -275,3 +275,82 @@ void mostrar_todos_albuns_determinado_ano_artista(Arv_artista *artistas, char *n
     }else
         printf("Artista não encontrado.\n");
 }
+
+// X - Mostrar todas as músicas de um determinado álbum de um determinado artista.
+void mostrar_todas_musicas(Arv_musicas *musica) {
+    if (musica != NULL) {
+        mostrar_todas_musicas(musica->esq);
+        printf("Título: %s, Duração: %d min\n", musica->titulo, musica->qtd_minutos);
+        mostrar_todas_musicas(musica->dir);
+    }
+}
+
+void mostrar_todas_musicas_album_artista(Arv_artista *artista, char *nome_artista, char *titulo_album) {
+    Arv_artista *artista_encontrado = buscar_artista(artista, nome_artista);
+    if (artista_encontrado != NULL) {
+        Arv_albuns *album_encontrado = buscar_album(artista_encontrado->albuns, titulo_album);
+        if (album_encontrado != NULL) {
+            printf("\n--- Músicas do álbum '%s' do artista '%s' ---\n", titulo_album, nome_artista);
+            mostrar_todas_musicas(album_encontrado->musicas);
+        } else
+            printf("Álbum não encontrado.\n");
+    }else
+        printf("Artista não encontrado.\n");
+}
+
+// XI - Mostrar todos os álbuns de um determinado ano de todos os artistas cadastrados.
+
+void mostrar_todos_albuns_determinado_ano_todos_artistas(Arv_artista *artistas, int ano_album) {
+    if (artistas != NULL) {
+        mostrar_todos_albuns_determinado_ano_todos_artistas(artistas->esq, ano_album);
+        
+        printf("\n--- Álbuns de %d do artista: %s ---\n", ano_album, artistas->nome);
+        mostrar_albuns_ano(artistas->albuns, ano_album);
+
+        mostrar_todos_albuns_determinado_ano_todos_artistas(artistas->dir, ano_album);
+    }
+}
+
+//XII - Mostrar os dados de uma determinada Música (usuário entrar com o título da música): nome artista, título do álbum, ano de lançamento.
+Arv_musicas* buscar_musica(Arv_musicas *musicas, char *titulo) {
+    Arv_musicas *resultado = alocar_arvore_musica(NULL);
+    while (musicas != NULL) {
+        if (strcmp(musicas->titulo, titulo) == 0)
+            resultado = musicas; // Música encontrada
+        else if (strcmp(titulo, musicas->titulo) < 0)
+            musicas = musicas->esq;
+        else
+            musicas = musicas->dir;
+    }
+    return resultado; // Música não encontrada
+}
+
+void mostrar_dados_musica(Arv_artista *artistas, char *titulo_musica) {
+    if (artistas != NULL) {
+        // Percorre a árvore de artistas
+        mostrar_dados_musica(artistas->esq, titulo_musica);
+
+        // Percorre a árvore de álbuns do artista atual
+        Arv_albuns *album_atual = artistas->albuns;
+        while (album_atual != NULL) {
+            // Busca a música no álbum atual
+            Arv_musicas *musica_encontrada = buscar_musica(album_atual->musicas, titulo_musica);
+            if (musica_encontrada != NULL) {
+                printf("\n=== Dados da Música ===\n");
+                printf("Título: %s\n", musica_encontrada->titulo);
+                printf("Artista: %s\n", artistas->nome);
+                printf("Álbum: %s\n", album_atual->titulo);
+                printf("Ano de Lançamento: %d\n", album_atual->ano_lancamento);
+                break; // Música encontrada, pode sair da função
+            }
+            // Percorre os álbuns em ordem na árvore
+            if (strcmp(titulo_musica, album_atual->titulo) < 0)
+                album_atual = album_atual->esq;
+            else
+                album_atual = album_atual->dir;
+        }
+
+        mostrar_dados_musica(artistas->dir, titulo_musica);
+    }
+}
+

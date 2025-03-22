@@ -28,6 +28,8 @@ typedef struct arvore_musicas{ // organizada pelo título
     struct arvore_musicas *dir,*esq;
 }Arv_musicas;
 
+
+
 // Funções Relacionadas a Artista
 void converter_para_maiusculo(char *nome);
 int artista_existe(Arv_artista* artista, char *nome);
@@ -48,10 +50,15 @@ void mostrar_todos_albuns(Arv_albuns *album);
 void mostrar_todos_albuns_determinado_artista(Arv_artista *artista, char *nome_artista);
 void mostrar_albuns_ano(Arv_albuns *album, int ano_album);
 void mostrar_todos_albuns_determinado_ano_artista(Arv_artista *artistas, char *nome_artista, int ano_album);
+void mostrar_todos_albuns_determinado_ano_todos_artistas(Arv_artista *artistas, int ano_album);
+
 
 // Funções Relacionadas a Músicas
 int inserir_musica(Arv_musicas **musicas, Arv_musicas *No);
 int cadastrar_musicas(Arv_artista **artista, Arv_musicas *No, char *nome_artista, char *nome_album);
+void mostrar_todas_musicas_album_artista(Arv_artista *artista, char *nome_artista, char *titulo_album);
+Arv_musicas* buscar_musica(Arv_musicas *musicas, char *titulo);
+void mostrar_dados_musica(Arv_artista *artistas, char *titulo_musica);
 
 // Funções auxiliares
 Arv_artista* alocar_arvore_artista(Arv_artista *novo);
